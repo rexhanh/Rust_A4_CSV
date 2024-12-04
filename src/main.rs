@@ -32,7 +32,7 @@ struct SearchQuery {
     genre: Option<String>,
 }
 
-fn save_songs(songs: Song) {
+fn save_song(song: Song) {
     let file = OpenOptions::new()
         .write(true)
         .create(true)
@@ -40,7 +40,7 @@ fn save_songs(songs: Song) {
         .open("songs.csv")
         .unwrap();
     let mut writer = WriterBuilder::new().has_headers(false).from_writer(file);
-    writer.serialize(songs).unwrap();
+    writer.serialize(song).unwrap();
 }
 
 fn save_all_songs(songs: Vec<Song>) {
@@ -73,7 +73,6 @@ async fn count(data: web::Data<AppState>) -> impl Responder {
 
 #[post("/songs/new")]
 async fn new_song(song: web::Json<NewSong>, data: web::Data<AppState>) -> impl Responder {
-    // let mut library = data.library.lock().unwrap();
     let mut library = data.songs.write();
     let new_song = Song {
         title: song.title.clone(),
@@ -83,7 +82,7 @@ async fn new_song(song: web::Json<NewSong>, data: web::Data<AppState>) -> impl R
         play_count: 0,
     };
     library.push(new_song.clone());
-    save_songs(new_song.clone());
+    save_song(new_song.clone());
     HttpResponse::Ok().json(new_song)
 }
 #[get("/songs/search")]

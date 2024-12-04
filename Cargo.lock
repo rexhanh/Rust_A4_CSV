@@ -1256,7 +1256,6 @@ dependencies = [
  "rayon",
  "serde",
  "serde_json",
- "simple_on_shutdown",
  "tokio",
 ]
 
@@ -1285,12 +1284,6 @@ checksum = "a9e9e0b4211b72e7b8b6e85c807d36c212bdb33ea8587f7569562a84df5465b1"
 dependencies = [
  "libc",
 ]
-
-[[package]]
-name = "simple_on_shutdown"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "08df66e765f42432e83ef29ba9f45c5d80bfda7d5139baee77954829040ac6e2"
 
 [[package]]
 name = "slab"
